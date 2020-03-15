@@ -1,4 +1,4 @@
-# mobile
+# fypp
 
 A new Flutter project.
 
