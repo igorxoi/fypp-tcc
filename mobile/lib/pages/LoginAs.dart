@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/animations/FadeAnimation.dart';
-import 'package:mobile/animations/FadeAnimation.dart';
-import 'package:mobile/animations/FadeAnimation.dart';
 import 'package:mobile/pages/PhotographerLogin.dart';
 import 'package:mobile/pages/UserLogin.dart';
 import 'package:mobile/widgets/SlideRoute.dart';
@@ -10,6 +8,8 @@ import 'package:mobile/widgets/SlideRoute.dart';
 class LoginAs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery. of(context). size. height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Center(
         child: Container(
@@ -41,7 +41,7 @@ class LoginAs extends StatelessWidget {
                       CupertinoButton(
                         child: Container(
                           height: 200,
-                          width: 320,
+                          width: width,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage("assets/images/inkewell.jpg"),
@@ -75,7 +75,7 @@ class LoginAs extends StatelessWidget {
                       CupertinoButton(
                         child: Container(
                           height: 200,
-                          width: 320,
+                          width: width,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage(
