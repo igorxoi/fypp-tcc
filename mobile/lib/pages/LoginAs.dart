@@ -5,10 +5,13 @@ import 'package:mobile/pages/PhotographerLogin.dart';
 import 'package:mobile/pages/UserLogin.dart';
 import 'package:mobile/widgets/SlideRoute.dart';
 
+import 'PhotographerLogin.dart';
+import 'UserLogin.dart';
+
 class LoginAs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery. of(context). size. height;
+    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Center(
@@ -63,8 +66,10 @@ class LoginAs extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.push(context,
-                              SlideRightRoute(page: PhotographerLogin()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PhotographerLogin()));
                         },
                       )),
                 ),
@@ -98,7 +103,8 @@ class LoginAs extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                               context,
-                              SlideRightRoute(page: UserLogin()));
+                              MaterialPageRoute(
+                                  builder: (context) => UserLogin()));
                         },
                       )),
                 ),
