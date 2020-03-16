@@ -22,7 +22,7 @@ class UserLogin extends StatelessWidget {
           //   gradient:
           //       LinearGradient(colors: [Colors.purple, Colors.purpleAccent]),
           // ),
-          padding: const EdgeInsets.all(28.0),
+          padding: const EdgeInsets.all(12.0),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -46,7 +46,7 @@ class UserLogin extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.all(28.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: <Widget>[
                       Padding(
