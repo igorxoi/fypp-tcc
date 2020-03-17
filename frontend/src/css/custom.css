@@ -1,0 +1,14 @@
+.border-purple{
+    border-radius: 5px;
+    border: 1px solid #641682;
+}
+
+.margin-top{
+    margin-top: 7px;
+}
+
+.no-line a:any-link{
+    text-decoration: none;
+    color: black;
+}
+
