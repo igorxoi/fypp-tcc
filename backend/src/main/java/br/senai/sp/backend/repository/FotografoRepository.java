@@ -10,7 +10,6 @@ import br.senai.sp.backend.model.Fotografo;
 
 public interface FotografoRepository extends JpaRepository<Fotografo, Long> {
 
-	
 	@Query(value = "SELECT f FROM Fotografo f WHERE f.nome LIKE %:nome% ")
 	List<Fotografo> findByLikeNome(@Param("nome") String nome);
 }

@@ -27,14 +27,12 @@ public class ClienteResource {
 	private ClienteRepository clienteRepository;
 	
 	//listar os clientes
-	
 	@GetMapping("/clientes")
 	public List<Cliente> getClientes(){
 		return clienteRepository.findAll();
 	}
-	
+		
 	@PostMapping("/cliente")
-	
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente gravar(@Valid @RequestBody Cliente cliente) {
 		Cliente novoCliente = clienteRepository.save(cliente);
