@@ -52,6 +52,7 @@ class UserLogin extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: MyTextField(
+                          obscureText: false,
                           labelText: 'Usuário',
                           prefixIcon: Icon(Icons.person_outline),
                         ),
@@ -59,6 +60,7 @@ class UserLogin extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: MyTextField(
+                          obscureText: true,
                           labelText: 'Senha',
                           prefixIcon: Icon(Icons.lock_outline),
                         ),
