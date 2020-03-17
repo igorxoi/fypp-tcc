@@ -36,13 +36,10 @@ public class FotografoResource {
 	}
 	
 	//listar os fotografos por codigo
-	
 	@GetMapping("/fotografos/{id}")
 	public ResponseEntity<?> getFotografo(@PathVariable Long id){
 		Optional codFotografo = fotografoRepository.findById(id);
-				return codFotografo.isPresent() ? 
-						ResponseEntity.ok(codFotografo) 
-						: ResponseEntity.notFound().build();
+		return codFotografo.isPresent() ? ResponseEntity.ok(codFotografo) : ResponseEntity.notFound().build();
  	}
 	
 	//listar pelo nome
@@ -53,7 +50,6 @@ public class FotografoResource {
 	
 	//cadastrar um fotografo
 	@PostMapping("/fotografo")
-	
 	@ResponseStatus(HttpStatus.CREATED)
 	public Fotografo gravar(@Valid @RequestBody Fotografo fotografo) {
 		Fotografo novoFotografo = fotografoRepository.save(fotografo);
