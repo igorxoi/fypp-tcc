@@ -58,8 +58,8 @@ class LoginAs extends StatelessWidget {
                                       AssetImage("assets/images/inkewell.jpg"),
                                   fit: BoxFit.cover,
                                   colorFilter: ColorFilter.mode(
-                                      Colors.black.withOpacity(0.2),
-                                      BlendMode.hardLight),
+                                      Colors.purple.withOpacity(0.5),
+                                      BlendMode.darken),
                                 ),
                                 borderRadius: BorderRadius.circular(12),
                               ),
