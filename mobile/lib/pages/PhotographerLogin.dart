@@ -11,16 +11,17 @@ class PhotographerLogin extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text('Login fotógrafo'),
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.deepPurple,
         elevation: 0,
       ),
       body: Center(
         child: Container(
-          color: Colors.purple,
-          // decoration: BoxDecoration(
-          //   gradient:
-          //       LinearGradient(colors: [Colors.purple, Colors.purpleAccent]),
-          // ),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [Colors.deepPurple, Colors.deepPurpleAccent],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          )),
           padding: const EdgeInsets.all(12.0),
           child: Container(
             decoration: BoxDecoration(
@@ -51,6 +52,7 @@ class PhotographerLogin extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: MyTextField(
+                          obscureText: false,
                           labelText: 'Usuário',
                           prefixIcon: Icon(Icons.person_outline),
                         ),
@@ -58,6 +60,7 @@ class PhotographerLogin extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: MyTextField(
+                          obscureText: true,
                           labelText: 'Senha',
                           prefixIcon: Icon(Icons.lock_outline),
                         ),
@@ -73,7 +76,7 @@ class PhotographerLogin extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          color: Colors.purple,
+                          color: Colors.deepPurple,
                           elevation: 0,
                           minWidth: 400,
                           height: 50,
@@ -100,7 +103,7 @@ class PhotographerLogin extends StatelessWidget {
                                 child: Text(
                                   'Cadastre-se',
                                   style: TextStyle(
-                                      color: Colors.purple, fontSize: 16),
+                                      color: Colors.deepPurple, fontSize: 16),
                                 ))
                           ],
                         ),

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
 class TopShape extends StatelessWidget {
+  final double height;
+
+  const TopShape({Key key, this.height}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return RotatedBox(
       quarterTurns: 0,
       child: CustomPaint(
         child: Container(
-          height: 130.0,
+          height: height,
         ),
         painter: CurvePainter(),
       ),
@@ -15,12 +19,12 @@ class TopShape extends StatelessWidget {
   }
 }
 
-Color colorOne = Colors.purple;
-Color colorTwo = Colors.purple[300];
-Color colorThree = Colors.purple[100];
+Color colorOne = Colors.deepPurple;
+Color colorTwo = Colors.deepPurple[300];
+Color colorThree = Colors.deepPurple[100];
 
 final appTheme = ThemeData(
-  primarySwatch: Colors.purple,
+  primarySwatch: Colors.deepPurple,
 );
 
 class CurvePainter extends CustomPainter {

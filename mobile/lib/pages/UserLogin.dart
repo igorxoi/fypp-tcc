@@ -12,16 +12,17 @@ class UserLogin extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text('Login usuário'),
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.deepPurple,
         elevation: 0,
       ),
       body: Center(
         child: Container(
-          color: Colors.purple,
-          // decoration: BoxDecoration(
-          //   gradient:
-          //       LinearGradient(colors: [Colors.purple, Colors.purpleAccent]),
-          // ),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [Colors.deepPurple, Colors.deepPurpleAccent],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          )),
           padding: const EdgeInsets.all(12.0),
           child: Container(
             decoration: BoxDecoration(
@@ -76,9 +77,9 @@ class UserLogin extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          color: Colors.purple,
+                          color: Colors.deepPurple,
                           elevation: 0,
-                          minWidth: 400,
+                          minWidth: width,
                           height: 50,
                           textColor: Colors.white,
                           shape: RoundedRectangleBorder(
@@ -103,7 +104,7 @@ class UserLogin extends StatelessWidget {
                                 child: Text(
                                   'Cadastre-se',
                                   style: TextStyle(
-                                      color: Colors.purple, fontSize: 16),
+                                      color: Colors.deepPurple, fontSize: 16),
                                 ))
                           ],
                         ),

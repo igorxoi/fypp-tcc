@@ -28,6 +28,7 @@ dependencies:
   font_awesome_flutter: ^8.5.0
   http: ^0.12.0+4
   shared_preferences: ^0.5.6+3
+  splashscreen: ^1.2.0
 
 dev_dependencies:
   flutter_test:

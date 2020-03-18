@@ -31,17 +31,15 @@ class _UserRegisterState extends State<UserRegister> {
       Map<String, String> headers = {'Content-type': 'application/json'};
 
       Response response = await post(api, headers: headers, body: user);
-      if(response.statusCode == 201){
+      if (response.statusCode == 201) {
         Map<String, dynamic> body = jsonDecode(response.body);
         print(body['nome']);
       }
 
       return response;
-
     }
 
     registerButtonAction() async {
-
       name = _nameController.text.trim();
       phone = _phoneController.text.trim();
       cep = _cepController.text.trim();
@@ -60,7 +58,12 @@ class _UserRegisterState extends State<UserRegister> {
       Response response = await insertUser(user);
       Map<String, dynamic> body = jsonDecode(response.body);
       final _name = body['nome'];
-      Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegisterImage(name: _name,)));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => UserRegisterImage(
+                    name: _name,
+                  )));
 
       // jsonDecode(user);
 
@@ -83,12 +86,17 @@ class _UserRegisterState extends State<UserRegister> {
         appBar: AppBar(
           centerTitle: true,
           title: Text('Cadastro usuário'),
-          backgroundColor: Colors.purple,
+          backgroundColor: Colors.deepPurple,
           elevation: 0,
         ),
         body: Center(
           child: Container(
-            color: Colors.purple,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              colors: [Colors.deepPurple, Colors.deepPurpleAccent],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            )),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -162,7 +170,7 @@ class _UserRegisterState extends State<UserRegister> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              color: Colors.purple,
+                              color: Colors.deepPurple,
                               elevation: 0,
                               minWidth: 400,
                               height: 50,

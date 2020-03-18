@@ -20,7 +20,7 @@ class LoginAs extends StatelessWidget {
           children: <Widget>[
             FadeAnimation(
               1,
-              TopShape(),
+              TopShape(height: 130.0,),
             ),
             Container(
               child: Container(
@@ -58,7 +58,7 @@ class LoginAs extends StatelessWidget {
                                       AssetImage("assets/images/inkewell.jpg"),
                                   fit: BoxFit.cover,
                                   colorFilter: ColorFilter.mode(
-                                      Colors.purple.withOpacity(0.5),
+                                      Colors.deepPurple.withOpacity(0.7),
                                       BlendMode.darken),
                                 ),
                                 borderRadius: BorderRadius.circular(12),
@@ -97,8 +97,8 @@ class LoginAs extends StatelessWidget {
                                       "assets/images/inkwell-cliente.jpg"),
                                   fit: BoxFit.cover,
                                   colorFilter: ColorFilter.mode(
-                                      Colors.black.withOpacity(0.2),
-                                      BlendMode.hardLight),
+                                      Colors.deepPurple.withOpacity(0.5),
+                                      BlendMode.darken),
                                 ),
                                 borderRadius: BorderRadius.circular(12),
                               ),
