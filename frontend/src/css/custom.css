@@ -3,12 +3,79 @@
     border: 1px solid #641682;
 }
 
-.margin-top{
+.margin-top-icons-login{
     margin-top: 7px;
+}
+
+.font-color-purple{
+    color: #641682;
+}
+
+.font-14{
+    font-size: 14px;
+    color: black;
+}
+
+input[type=text]:not(.browser-default){
+    border-bottom: 0px solid 
 }
 
 .no-line a:any-link{
     text-decoration: none;
     color: black;
 }
+
+.submitFrmLogin{
+    color: white;
+    background-color: #641682;
+    box-shadow: none;
+    letter-spacing: 2px;
+    border-radius: 2px;
+}
+
+.submitFrmLogin:hover{
+    background-color: rgba(100 , 22, 130, 0.9) ;
+} 
+
+/* .submitFrmLogin{
+    border: 1px solid #641682;
+    background-color: white;
+    color: #641682;    
+    letter-spacing: 3px;
+    border-radius: 5px;
+} */
+
+/* .submitFrmLogin:hover{
+    color: white;
+    background-color: #641682;
+    font-weight: bold;
+    transition: 1s; 
+    box-shadow: none;
+} */
+
+.input-field input[type=text]:focus {
+    border-bottom: none;
+    box-shadow: none;
+}
+
+.camposFrmLogin input[type=text]:not(.browser-default){
+    height: 3rem;
+    width: 100%;
+    font-size: 14px;
+    margin: 0 0 0 0;
+}
+
+.frmLogin{
+    margin-bottom: 3em;    
+}
+
+.modal{
+    max-height: 80%;
+}
+
+.linkCadastroFrmLogin a p{
+    color:#641682;
+}
+
+
 
