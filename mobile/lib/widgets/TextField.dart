@@ -6,8 +6,9 @@ class MyTextField extends StatefulWidget {
   final TextEditingController controller;
   final bool obscureText;
   final String errorText;
+  final int maxLenght;
 
-  const MyTextField({Key key, this.labelText, this.prefixIcon, this.controller, this.obscureText, this.errorText})
+  const MyTextField({Key key, this.labelText, this.prefixIcon, this.controller, this.obscureText, this.errorText, this.maxLenght})
       : super(key: key);
 
   @override
@@ -20,6 +21,7 @@ class _MyTextFieldState extends State<MyTextField> {
     return TextFormField(
       controller: widget.controller,
       obscureText: widget.obscureText,
+      maxLength: widget.maxLenght,
       style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
           border: OutlineInputBorder(borderSide: BorderSide(color: Colors.pink)),

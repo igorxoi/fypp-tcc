@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "53617721029",
+    "firebase_url": "https://fypp-tcc.firebaseio.com",
+    "project_id": "fypp-tcc",
+    "storage_bucket": "fypp-tcc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53617721029:android:27b43838b30d8181fe3aac",
+        "android_client_info": {
+          "package_name": "com.example.fypp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53617721029-oud89kb3b6gq478u87sa3g142svu756d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl8-1x1LPncVmkkiWCSn1YJeNyoFD32jQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53617721029-oud89kb3b6gq478u87sa3g142svu756d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -20,7 +20,9 @@ class LoginAs extends StatelessWidget {
           children: <Widget>[
             FadeAnimation(
               1,
-              TopShape(height: 130.0,),
+              TopShape(
+                height: 130.0,
+              ),
             ),
             Container(
               child: Container(
@@ -77,16 +79,31 @@ class LoginAs extends StatelessWidget {
                             onPressed: () {
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(
+                                  CupertinoPageRoute(
                                       builder: (context) =>
                                           PhotographerLogin()));
                             },
                           )),
                     ),
                     Padding(
+                      padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+                      child: FadeAnimation(
+                        2.2,
+                        Row(children: <Widget>[
+                          Expanded(child: Divider()),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 8.0, right: 8.0),
+                            child: Text('ou'),
+                          ),
+                          Expanded(child: Divider()),
+                        ]),
+                      ),
+                    ),
+                    Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: FadeAnimation(
-                          2.4,
+                          2.6,
                           CupertinoButton(
                             child: Container(
                               height: 200,
@@ -116,7 +133,7 @@ class LoginAs extends StatelessWidget {
                             onPressed: () {
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(
+                                  CupertinoPageRoute(
                                       builder: (context) => UserLogin()));
                             },
                           )),

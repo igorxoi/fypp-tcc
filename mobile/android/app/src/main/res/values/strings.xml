@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">fypp</string> 
+    <string name="facebook_app_id">2400995476858504</string> 
+    <string name="fb_login_protocol_scheme">fb2400995476858504</string>
+</resources>
+

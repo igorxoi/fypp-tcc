@@ -6,28 +6,30 @@ import 'package:mobile/pages/UserRegisterImage.dart';
 import 'package:mobile/services/ViaCepService.dart';
 import 'package:mobile/widgets/TextField.dart';
 
-class UserRegister extends StatefulWidget {
+class PhotographerRegister extends StatefulWidget {
   @override
-  _UserRegisterState createState() => _UserRegisterState();
+  _PhotographerRegister createState() => _PhotographerRegister();
 }
 
-class _UserRegisterState extends State<UserRegister> {
+class _PhotographerRegister extends State<PhotographerRegister> {
   @override
   Widget build(BuildContext context) {
     final _nameController = TextEditingController();
+    final _cpfController = TextEditingController();
     final _phoneController = TextEditingController();
     final _cepController = TextEditingController();
     final _emailController = TextEditingController();
     final _passwordController = TextEditingController();
 
     String name;
+    String cpf;
     String phone;
     String cep;
     String email;
     String password;
 
     insertUser(String user) async {
-      final api = 'http://10.107.144.25:8080/photo/cliente';
+      final api = 'http://10.107.144.25:8080/photo/fotografo';
       Map<String, String> headers = {'Content-type': 'application/json'};
 
       Response response = await post(api, headers: headers, body: user);
@@ -41,6 +43,7 @@ class _UserRegisterState extends State<UserRegister> {
 
     registerButtonAction() async {
       name = _nameController.text.trim();
+      cpf = _cpfController.text.trim();
       phone = _phoneController.text.trim();
       cep = _cepController.text.trim();
       email = _emailController.text.trim();
@@ -49,6 +52,7 @@ class _UserRegisterState extends State<UserRegister> {
       String user = jsonEncode({
         'id': 0,
         'nome': '$name',
+        'cpf': '$cpf',
         'telefone': '$phone',
         'cep': '$cep',
         'email': '$email',
@@ -74,6 +78,12 @@ class _UserRegisterState extends State<UserRegister> {
       // }
     }
 
+    // Future searchCep() async {
+    //   cep = _cepController.text.trim();
+    //   final resultCep = await ViaCepService.fetchCep(cep: cep);
+    //   print(resultCep.localidade);
+    // }
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -81,7 +91,7 @@ class _UserRegisterState extends State<UserRegister> {
         // resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Cadastro usuário'),
+          title: Text('Cadastro fotógrafo'),
           backgroundColor: Colors.deepPurple,
           elevation: 0,
         ),
@@ -131,6 +141,15 @@ class _UserRegisterState extends State<UserRegister> {
                                   controller: _nameController,
                                   labelText: 'Nome',
                                   prefixIcon: Icon(Icons.person_outline),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: MyTextField(
+                                  obscureText: false,
+                                  controller: _nameController,
+                                  labelText: 'CPF',
+                                  prefixIcon: Icon(Icons.assignment),
                                 ),
                               ),
                               Padding(
@@ -204,26 +223,3 @@ class _UserRegisterState extends State<UserRegister> {
         ));
   }
 }
-
-// child: SingleChildScrollView(
-//   child: Container(
-//     color: Colors.red,
-//     child: Column(
-//       children: <Widget>[
-//         Container(
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(10),
-//             color: Colors.white,
-//           ),
-//           width: width,
-//           margin: const EdgeInsets.all(0.0),
-//           child: Column(
-//             children: <Widget>[
-
-//             ],
-//           ),
-//         ),
-//       ],
-//     ),
-//   ),
-// ),
