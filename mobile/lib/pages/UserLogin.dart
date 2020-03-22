@@ -16,6 +16,38 @@ class UserLogin extends StatefulWidget {
 class _UserLoginState extends State<UserLogin> {
   FacebookLogin fbLogin = new FacebookLogin();
 
+  facebookAuth() {
+    fbLogin.logInWithReadPermissions(['email']).then((result) {
+      switch (result.status) {
+        case FacebookLoginStatus.loggedIn:
+          AuthCredential credential = FacebookAuthProvider.getCredential(
+              accessToken: result.accessToken.token);
+          FirebaseAuth.instance
+              .signInWithCredential(credential)
+              .then((signedInUser) {
+            print('Logado como ${signedInUser.user.displayName}, ${result.accessToken.token}');
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => UserRegisterImage(
+                    name: signedInUser.user.displayName,
+                    token: result.accessToken.token,
+                  ),
+                ));
+          }).catchError((e) {
+            print(e);
+          });
+          break;
+        case FacebookLoginStatus.cancelledByUser:
+          break;
+        case FacebookLoginStatus.error:
+          break;
+      }
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -124,37 +156,7 @@ class _UserLoginState extends State<UserLogin> {
                             Buttons.Facebook,
                             text: "Conectar com o Facebook",
                             onPressed: () {
-                              fbLogin.logInWithReadPermissions(['email']).then(
-                                  (result) {
-                                switch (result.status) {
-                                  case FacebookLoginStatus.loggedIn:
-                                  AuthCredential credential = FacebookAuthProvider.getCredential(accessToken: result.accessToken.token);
-                                    FirebaseAuth.instance
-                                        .signInWithCredential(
-                                            credential)
-                                        .then((signedInUser) {
-                                      print(
-                                          'Logado como ${signedInUser.user.displayName}');
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                            builder: (context) =>
-                                                UserRegisterImage(name: signedInUser.user.displayName,),
-                                          ));
-                                    }).catchError((e) {
-                                      print(e);
-                                    });
-                                    break;
-                                  case FacebookLoginStatus.cancelledByUser:
-                                    // TODO: Handle this case.
-                                    break;
-                                  case FacebookLoginStatus.error:
-                                    // TODO: Handle this case.
-                                    break;
-                                }
-                              }).catchError((e) {
-                                print(e);
-                              });
+                              facebookAuth();
                             },
                           ),
                         ),

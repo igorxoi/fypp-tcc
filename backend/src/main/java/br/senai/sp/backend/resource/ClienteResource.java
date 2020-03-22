@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senai.sp.backend.model.Cliente;
 import br.senai.sp.backend.repository.ClienteRepository;
+import br.senai.sp.backend.upload.FirebaseStorageService;
+import br.senai.sp.backend.upload.UploadInput;
 
 @RestController
 @RequestMapping("/photo")
@@ -25,6 +28,9 @@ public class ClienteResource {
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private FirebaseStorageService uploadFoto;
 	
 	//listar os clientes
 	@GetMapping("/clientes")
@@ -37,6 +43,12 @@ public class ClienteResource {
 	public Cliente gravar(@Valid @RequestBody Cliente cliente) {
 		Cliente novoCliente = clienteRepository.save(cliente);
 		return novoCliente;
+	}
+	
+	@PostMapping("/cliente/foto")
+	public ResponseEntity uploadFoto(@RequestBody UploadInput fotoUpload) {
+		String url = uploadFoto.upload(fotoUpload);
+		return ResponseEntity.ok(url);
 	}
 	
 	

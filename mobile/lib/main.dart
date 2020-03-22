@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/pages/LoginAs.dart';
 import 'package:mobile/pages/SplashScreen.dart';
 
 void main() => runApp(MyApp());

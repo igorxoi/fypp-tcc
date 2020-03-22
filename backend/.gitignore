@@ -4,6 +4,8 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+fypp-tcc-firebase-adminsdk.json
+
 ### STS ###
 .apt_generated
 .classpath
