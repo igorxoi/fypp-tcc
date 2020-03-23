@@ -2,8 +2,8 @@ import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import 'materialize-css/dist/css/materialize.css'
-import './css/custom.css'
-import ModalSelecaoLogin from './login/modal-selecao'
+import './componentes/login/css/custom.css'
+import ModalSelecaoLogin from './componentes/login/modal-selecao'
 
 function App() {
   return (
