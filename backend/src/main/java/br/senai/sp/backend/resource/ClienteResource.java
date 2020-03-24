@@ -45,11 +45,11 @@ public class ClienteResource {
 		return novoCliente;
 	}
 	
-	@PostMapping("/cliente/foto")
-	public ResponseEntity uploadFoto(@RequestBody UploadInput fotoUpload) {
-		String url = uploadFoto.upload(fotoUpload);
-		return ResponseEntity.ok(url);
-	}
+//	@PostMapping("/cliente/foto")
+//	public ResponseEntity uploadFoto(@RequestBody UploadInput fotoUpload) {
+////		String url = uploadFoto.upload(fotoUpload);
+////		return ResponseEntity.ok(url);
+//	}
 	
 	
 }
