@@ -25,14 +25,14 @@ class ModalLoginCliente extends Component {
                                 <i className="material-icons margin-top-icons-login">
                                     <MdPerson />
                                 </i>
-                            <h6 className="valign-wrapper">Fotografo</h6>
+                            <h6 className="valign-wrapper">Cliente</h6>
                         </div>                                    
                    </li>
                 </a>
 
                 {/****  Modal ****/}
                 <div className="row center">
-                    <div id="modalLoginFotografo" className="modal col s4">
+                    <div id="modalLoginFotografo" className="modal col l4 m8 s10">
                         <div className="modal-content">
                             <h4 className="font-color-purple left-align">Login</h4>
                             <FormLoginCliente/>                                    

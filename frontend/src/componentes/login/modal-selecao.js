@@ -6,7 +6,7 @@ function ModalSelecaoLogin(){
     return(
         <div className="container center">
             <div className="row ">
-                <div className="col s6 offset-s3">
+                <div className="col l6 m8 s12 offset-l3 offset-m2 ">
                     <div className="card z-depth-3">
                         <div className=" card-content dark-text">
                             <span className="card-title">Bem-vindo</span>

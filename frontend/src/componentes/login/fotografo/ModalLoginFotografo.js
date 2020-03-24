@@ -32,7 +32,7 @@ class ModalLoginFotografo extends Component {
 
                 {/****  Modal ****/}
                 <div className="row center">
-                    <div id="modalLoginFotografo" className="modal col s4">
+                    <div id="modalLoginFotografo" className="modal col l4 m8 s10">
                         <div className="modal-content">
                             <h4 className="font-color-purple left-align">Login</h4>
                             <FormFotografo/>                                    

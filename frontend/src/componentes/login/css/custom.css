@@ -53,16 +53,19 @@ input[type=text]:not(.browser-default){
     box-shadow: none;
 } */
 
-.input-field input[type=text]:focus {
+.input-field input[type=text]:focus, .input-field input[type=password]:focus {
     border-bottom: none;
     box-shadow: none;
+    border-bottom-color: none;
 }
 
-.camposFrmLogin input[type=text]:not(.browser-default){
+.camposFrmLogin input[type=text]:not(.browser-default), .camposFrmLogin input[type=password]:not(.browser-default){
     height: 3rem;
     width: 100%;
     font-size: 14px;
     margin: 0 0 0 0;
+    border-bottom: none;
+    box-shadow: none;
 }
 
 .frmLogin{
