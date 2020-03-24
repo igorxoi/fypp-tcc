@@ -2,15 +2,18 @@ import React, { Component } from 'react'
 import linkAPI from '../../../consts'
 import axios from 'axios'
 
+const stateInicial = {
+	email: '',
+	senha: '',
+	emailError: '',
+	senhaError: ''
+}
+
 class FormLoginCliente extends Component {
+	state = stateInicial
 
 	constructor(props) {
-		super(props)
-
-		this.state = {
-			email: '',
-			senha: ''
-		} 		
+		super(props)	
 	}
 
 	setEmail = (e) => {
@@ -24,14 +27,44 @@ class FormLoginCliente extends Component {
 			senha: e.target.value
 		});
 	}
+
+	validacao = () => {
+		let emailError = ''
+		let senhaError = ''
+
+		if(this.state.senha == ''){
+			senhaError = "• Digite sua senha"
+		}
+
+		if(this.state.email == ''){
+			emailError = "• Preencha o email";
+		}else if(!this.state.email.includes('@') || !this.state.email.includes('.com')){
+			emailError = "• Email invalido";
+		}
+
+		if(emailError || senhaError){
+			this.setState({emailError, senhaError})
+			return false;
+		}
+		
+
+		return true
+	}
 	
 	autenticar = () => {		
-
-		console.log(
-			linkAPI,
-			this.state.email,
-			this.state.senha
-		)
+		let dados = {}
+		
+		const validado = this.validacao();
+		// this.setState(stateInicial)
+		if(validado){
+			dados = {
+				email: this.state.email,
+				senha: this.state.senha
+			}
+	
+			console.log(dados)
+			this.setState(stateInicial)
+		}
 	}
 
 	/*autenticar = () => {
@@ -77,7 +110,11 @@ class FormLoginCliente extends Component {
 					</div>
 	
 					<div className="row">
-						<div className="col s12 right-align">
+						<div className="col s6 left-align" style={{color: "#ef5350"}}>
+							{this.state.emailError}<br/>
+							{this.state.senhaError}
+						</div>
+						<div className="col s6 right-align">
 							<button className="btn-large waves-effect waves-light submitFrmLogin" onClick={this.autenticar} type="button" name="action">
 								Entrar
 							</button>
