@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @Entity
 @Table(name = "tbl_cliente")
 public class Cliente {
@@ -87,6 +89,12 @@ public class Cliente {
 		this.fotoPerfil = fotoPerfil;
 	}
 	
+	
+	public static void main(String[] args) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		 String teste  = encoder.encode("senai127");
+		 System.out.println(teste);
+	}
 
 	
 	

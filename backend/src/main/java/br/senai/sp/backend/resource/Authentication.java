@@ -41,31 +41,28 @@ public class Authentication {
 	private AuthenticationManager authManager;
 	
 	
-	@PostMapping("/auth/cliente/login")
+	@PostMapping("/auth/login")
 	public ResponseEntity<Map<Object, Object>> signIn(@RequestBody ClienteDTO credential){
 		System.out.println("***Autenticando***");
 		
 		try {
 			UsernamePasswordAuthenticationToken cliente = new UsernamePasswordAuthenticationToken(credential.getEmail(), credential.getSenha());
 		authManager.authenticate(cliente);
+		List<String> roles = new ArrayList<>();
 		Cliente clienteLogin = new Cliente();
 		clienteLogin = clienteRepositoryAuth.findByEmail(credential.getEmail());
-		String token =  jwtAuthService.createToken(credential.getEmail(), null) ;
+		roles.add(clienteLogin.getRole());
+		String token =  jwtAuthService.createToken(credential.getEmail(), roles) ;
 		Map<Object, Object> jsonResponse = new HashMap<>();
 		jsonResponse.put("email", credential.getEmail());
 		jsonResponse.put("token", token);
-		
+		//System.out.println(token);
 		return ResponseEntity.ok(jsonResponse);
-	
-		
 		}catch (Exception e) {
 			System.out.println(e);
 		}
 		
-		
-		
 		return null;
 		
 	}
-
 }
