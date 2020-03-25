@@ -23,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private UserDetailServiceImpl userDetailService;
+	
 
 	@Bean
 	@Override
@@ -37,8 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and()
 			.authorizeRequests()
+			.antMatchers(HttpMethod.POST, "/photo/auth/cliente/login").permitAll()
 			.antMatchers(HttpMethod.POST, "/photo/auth/login").permitAll()
 			.antMatchers(HttpMethod.GET, "/photo/clientes/**").hasRole("ADMIN")
+			.antMatchers(HttpMethod.GET, "/photo/fotografos/**").hasRole("ADMIN")
 			.anyRequest().authenticated()
 	.and()
 		.apply(new JwtAuthConfigurer(jwtAuthService));
