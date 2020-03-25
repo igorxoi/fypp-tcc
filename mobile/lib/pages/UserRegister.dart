@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:mobile/mixins/Validations.dart';
 import 'package:mobile/pages/UserRegisterImage.dart';
 import 'package:mobile/services/ViaCepService.dart';
 import 'package:mobile/widgets/TextField.dart';
@@ -11,15 +13,23 @@ class UserRegister extends StatefulWidget {
   _UserRegisterState createState() => _UserRegisterState();
 }
 
-class _UserRegisterState extends State<UserRegister> {
+class _UserRegisterState extends State<UserRegister> with ValidationMixin {
+  final formKey = GlobalKey<FormState>();
+  String content = "";
+  String name = "";
+  String phone = "";
+  String cep = "";
+  String email = "";
+  String password = "";
+
+  TextEditingController _nameController;
+  TextEditingController _phoneController;
+  TextEditingController _cepController;
+  TextEditingController _emailController;
+  TextEditingController _passwordController;
+
   @override
   Widget build(BuildContext context) {
-    final _nameController = TextEditingController();
-    final _phoneController = TextEditingController();
-    final _cepController = TextEditingController();
-    final _emailController = TextEditingController();
-    final _passwordController = TextEditingController();
-
     String name;
     String phone;
     String cep;
@@ -59,19 +69,13 @@ class _UserRegisterState extends State<UserRegister> {
       Map<String, dynamic> body = jsonDecode(response.body);
       final _name = body['nome'];
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => UserRegisterImage(
-                    name: _name,
-                  )));
-
-      // jsonDecode(user);
-
-      // if (user != '') {
-      //   print(user);
-      //   Navigator.push(context,
-      //       MaterialPageRoute(builder: (context) => UserRegisterImage()));
-      // }
+        context,
+        MaterialPageRoute(
+          builder: (context) => UserRegisterImage(
+            name: _name,
+          ),
+        ),
+      );
     }
 
     double width = MediaQuery.of(context).size.width;
@@ -97,104 +101,65 @@ class _UserRegisterState extends State<UserRegister> {
               padding: const EdgeInsets.all(8.0),
               child: ListView(
                 children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                    ),
-                    width: width,
-                    height: (height - 100),
-                    margin: const EdgeInsets.all(0.0),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.only(left: 28.0, top: 20.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                'Cadastro',
-                                style: TextStyle(fontSize: 30),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: MyTextField(
-                                  obscureText: false,
-                                  controller: _nameController,
-                                  labelText: 'Nome',
-                                  prefixIcon: Icon(Icons.person_outline),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: MyTextField(
-                                  obscureText: false,
-                                  controller: _phoneController,
-                                  labelText: 'Telefone',
-                                  prefixIcon: Icon(Icons.phone_iphone),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: MyTextField(
-                                  obscureText: false,
-                                  controller: _cepController,
-                                  labelText: 'CEP',
-                                  prefixIcon: Icon(Icons.location_city),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: MyTextField(
-                                  obscureText: false,
-                                  controller: _emailController,
-                                  labelText: 'Email',
-                                  prefixIcon: Icon(Icons.mail_outline),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: MyTextField(
-                                  obscureText: true,
-                                  controller: _passwordController,
-                                  labelText: 'Senha',
-                                  prefixIcon: Icon(Icons.lock_outline),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: MaterialButton(
-                                  onPressed: () async {
-                                    registerButtonAction();
-                                  }, //since this is only a UI app
-                                  child: Text(
-                                    'CADASTRAR',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                  SingleChildScrollView(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      width: width,
+                      height: (height - 100),
+                      margin: const EdgeInsets.all(0.0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              padding:
+                                  const EdgeInsets.only(left: 28.0, top: 20.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    'Cadastro',
+                                    style: TextStyle(fontSize: 30),
                                   ),
-                                  color: Colors.deepPurple,
-                                  elevation: 0,
-                                  minWidth: 400,
-                                  height: 50,
-                                  textColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
+                                ],
+                              ),
+                            ),
+                            SingleChildScrollView(
+                              child: Container(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Form(
+                                  key: formKey,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: nameField()),
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: phoneField()),
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: cepField()),
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: emailField()),
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: passwordField()),
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: submitButton()),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ],
-                          ),
-                        )
-                      ],
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -203,27 +168,127 @@ class _UserRegisterState extends State<UserRegister> {
           ),
         ));
   }
+
+  Widget nameField() {
+    return TextFormField(
+      validator: validateName,
+      onSaved: (value) {
+        setState(() {
+          name = value;
+        });
+      },
+      obscureText: false,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderSide: BorderSide(),
+        ),
+        labelText: 'Nome',
+        prefixIcon: Icon(Icons.person_outline),
+      ),
+    );
+  }
+
+  Widget phoneField() {
+    return TextFormField(
+      inputFormatters: [new MaskTextInputFormatter(mask: '## ##### ####')],
+      validator: validatePhone,
+      onSaved: (value) {
+        setState(() {
+          phone = value;
+        });
+      },
+      obscureText: false,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderSide: BorderSide(),
+        ),
+        labelText: 'Celular',
+        prefixIcon: Icon(Icons.phone_iphone),
+      ),
+    );
+  }
+
+  Widget cepField() {
+    return TextFormField(
+      validator: validateCep,
+      inputFormatters: [new MaskTextInputFormatter(mask: '#####-###')],
+      onSaved: (value) {
+        setState(() {
+          cep = value;
+        });
+      },
+      obscureText: false,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderSide: BorderSide(),
+        ),
+        labelText: 'CEP',
+        prefixIcon: Icon(Icons.location_city),
+      ),
+    );
+  }
+
+  Widget emailField() {
+    return TextFormField(
+      validator: validateEmail,
+      onSaved: (value) {
+        setState(() {
+          email = value;
+        });
+      },
+      obscureText: false,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderSide: BorderSide(),
+        ),
+        labelText: 'Email',
+        prefixIcon: Icon(Icons.email),
+      ),
+    );
+  }
+
+  Widget passwordField() {
+    return TextFormField(
+      validator: validatePassword,
+      onSaved: (value) {
+        setState(() {
+          password = value;
+        });
+      },
+      obscureText: true,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderSide: BorderSide(),
+        ),
+        labelText: 'Senha',
+        prefixIcon: Icon(Icons.lock_outline),
+      ),
+    );
+  }
+
+  Widget submitButton() {
+    return MaterialButton(
+      onPressed: () {
+        if (formKey.currentState.validate()) {
+          formKey.currentState.save();
+          setState(() {
+            print('$name');
+          });
+        }
+      },
+      child: Text(
+        'CADASTRAR',
+        style: TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      color: Colors.deepPurple,
+      elevation: 0,
+      minWidth: 400,
+      height: 50,
+      textColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    );
+  }
 }
-
-// child: SingleChildScrollView(
-//   child: Container(
-//     color: Colors.red,
-//     child: Column(
-//       children: <Widget>[
-//         Container(
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(10),
-//             color: Colors.white,
-//           ),
-//           width: width,
-//           margin: const EdgeInsets.all(0.0),
-//           child: Column(
-//             children: <Widget>[
-
-//             ],
-//           ),
-//         ),
-//       ],
-//     ),
-//   ),
-// ),
