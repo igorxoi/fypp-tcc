@@ -13,8 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
@@ -38,10 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and()
-		.authorizeRequests()
-		.antMatchers(HttpMethod.POST, "/photo/auth/cliente/login").permitAll()
-		.antMatchers(HttpMethod.GET, "/photo/cliente/**").hasRole("ADMIN")
-		.anyRequest().authenticated()
+			.authorizeRequests()
+			.antMatchers(HttpMethod.POST, "/photo/auth/login").permitAll()
+			.antMatchers(HttpMethod.GET, "/photo/clientes/**").hasRole("ADMIN")
+			.anyRequest().authenticated()
 	.and()
 		.apply(new JwtAuthConfigurer(jwtAuthService));
 }

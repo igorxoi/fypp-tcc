@@ -50,7 +50,7 @@ public class JwtAuthService {
 			
 			if(email != null) {
 				UserDetails userDetails = userDetailService.loadUserByUsername(email);
-				return new UsernamePasswordAuthenticationToken(null, null, null);
+				return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 				
 			}
 		}
