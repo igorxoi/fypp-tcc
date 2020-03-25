@@ -23,6 +23,7 @@ public class Fotografo {
 	private String cep;
 	private String email;
 	private String senha;
+	private String role;
 	
 	@ManyToMany
 	private List<Especialidades> especialidades;
@@ -93,6 +94,14 @@ public class Fotografo {
 
 	public List<Especialidades> getEspecialidades() {
 		return especialidades;
+	}
+	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public void setEspecialidades(List<Especialidades> especialidades) {

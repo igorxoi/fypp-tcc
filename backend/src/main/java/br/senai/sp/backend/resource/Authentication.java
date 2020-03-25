@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senai.sp.backend.dto.ClienteDTO;
+import br.senai.sp.backend.dto.FotografoDTO;
 import br.senai.sp.backend.model.Cliente;
+import br.senai.sp.backend.model.Fotografo;
 import br.senai.sp.backend.repository.ClienteRepository;
 import br.senai.sp.backend.repository.ClienteRepositoryAuth;
 import br.senai.sp.backend.repository.FotografoRepository;
+import br.senai.sp.backend.repository.FotografoRepositoryAuth;
 import br.senai.sp.backend.security.JwtAuthService;
 
 @RestController
@@ -32,7 +35,7 @@ public class Authentication {
 	private ClienteRepositoryAuth clienteRepositoryAuth;
 	
 	@Autowired
-	private FotografoRepository fotografoRepository;
+	private FotografoRepositoryAuth fotografoRepositoryAuth;
 	
 	@Autowired
 	private JwtAuthService jwtAuthService;
@@ -40,9 +43,9 @@ public class Authentication {
 	@Autowired()
 	private AuthenticationManager authManager;
 	
-	
-	@PostMapping("/auth/login")
-	public ResponseEntity<Map<Object, Object>> signIn(@RequestBody ClienteDTO credential){
+	//autenticação de cliente
+	@PostMapping("/auth/cliente/login")
+	public ResponseEntity<Map<Object, Object>> signIn2(@RequestBody ClienteDTO credential){
 		System.out.println("***Autenticando***");
 		
 		try {
@@ -61,8 +64,30 @@ public class Authentication {
 		}catch (Exception e) {
 			System.out.println(e);
 		}
-		
 		return null;
+	}
+	
+	//autenticaçao de fotografo
+	@PostMapping("/auth/login")
+	public ResponseEntity<Map<Object, Object>> signIn(@RequestBody FotografoDTO credentialFotografo){
+		System.out.println("***Autenticando***");
 		
+		try {
+			UsernamePasswordAuthenticationToken fotografo = new UsernamePasswordAuthenticationToken(credentialFotografo.getEmail(), credentialFotografo.getSenha());
+		authManager.authenticate(fotografo);
+		List<String> roles = new ArrayList<>();
+		Fotografo fotografoLogin = new Fotografo();
+		fotografoLogin = fotografoRepositoryAuth.findByEmail(credentialFotografo.getEmail());
+		roles.add(fotografoLogin.getRole());
+		String token =  jwtAuthService.createToken(credentialFotografo.getEmail(), roles) ;
+		Map<Object, Object> jsonResponse = new HashMap<>();
+		jsonResponse.put("email", credentialFotografo.getEmail());
+		jsonResponse.put("token", token);
+		//System.out.println(token);
+		return ResponseEntity.ok(jsonResponse);
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;	
 	}
 }
