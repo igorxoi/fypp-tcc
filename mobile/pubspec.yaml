@@ -35,6 +35,10 @@ dependencies:
   google_sign_in: ^4.0.7
   image_picker: ^0.6.3+4
   mime: ^0.9.6+3
+  rxdart: ^0.21.0
+  mask_text_input_formatter: ^1.0.6
+  flutter_staggered_animations: "^0.1.2"
+
 
 dev_dependencies:
   flutter_test:
