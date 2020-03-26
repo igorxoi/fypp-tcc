@@ -1,5 +1,6 @@
 package br.senai.sp.backend.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.senai.sp.backend.dto.ClienteToken;
 import br.senai.sp.backend.model.Cliente;
 import br.senai.sp.backend.repository.ClienteRepository;
+import br.senai.sp.backend.security.JwtAuthService;
 import br.senai.sp.backend.upload.FirebaseStorageService;
 import br.senai.sp.backend.upload.UploadInput;
 
@@ -36,6 +39,9 @@ public class ClienteResource {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	@Autowired
+	private JwtAuthService jwtAuthService;
+	
 	//listar os clientes
 	@GetMapping("/clientes")
 	public List<Cliente> getClientes(){
@@ -44,7 +50,7 @@ public class ClienteResource {
 		
 	@PostMapping("/cliente")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente gravar(@Valid @RequestBody Cliente cliente) {
+	public ClienteToken gravar(@Valid @RequestBody Cliente cliente) {
 		
 		String encodedPassword = bCryptPasswordEncoder.encode(cliente.getSenha());
 		
@@ -53,7 +59,22 @@ public class ClienteResource {
 		cliente.setSenha(encodedPassword);
 		//System.out.println(novoCliente.getSenha());
 		novoCliente= clienteRepository.save(cliente);
-		return novoCliente;
+		
+		ClienteToken clienteToken = new ClienteToken();
+		List<String> roles = new ArrayList<>();
+		String token =  jwtAuthService.createToken(cliente.getEmail(), roles) ;
+		clienteToken.setToken(token);
+		clienteToken.setEmail(cliente.getEmail());
+		clienteToken.setNome(cliente.getNome());
+		clienteToken.setCep(cliente.getCep());
+		clienteToken.setFotoPerfil(cliente.getFotoPerfil());
+		clienteToken.setId(cliente.getId());
+		clienteToken.setSenha(cliente.getSenha());
+		clienteToken.setTelefone(cliente.getTelefone());
+		clienteToken.setSenha(cliente.getSenha());
+		clienteToken.setRole(cliente.getRole());
+		
+		return clienteToken;
 	}
 	
 //	@PostMapping("/cliente/foto")
