@@ -1,5 +1,7 @@
 package br.senai.sp.backend.security;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +27,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailServiceImpl userDetailService;
 	
+	@Autowired
+	DataSource dataSource;
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
+	// Enable jdbc authentication
+	@Autowired
+	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder());
+	}
+	
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -41,7 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/photo/auth/cliente/login").permitAll()
 			.antMatchers(HttpMethod.POST, "/photo/auth/login").permitAll()
 			.antMatchers(HttpMethod.GET, "/photo/clientes/**").hasRole("ADMIN")
+			.antMatchers(HttpMethod.GET, "/photo/cliente/**").hasRole("ADMIN")
 			.antMatchers(HttpMethod.GET, "/photo/fotografos/**").hasRole("ADMIN")
+			.antMatchers(HttpMethod.GET, "/photo/fotografo/**").hasRole("ADMIN")
 			.anyRequest().authenticated()
 	.and()
 		.apply(new JwtAuthConfigurer(jwtAuthService));
