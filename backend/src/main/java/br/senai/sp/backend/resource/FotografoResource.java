@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,9 @@ public class FotografoResource {
 
 	@Autowired
 	private FotografoRepository fotografoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	//listar todos os fotografos
 	@GetMapping("/fotografos")
@@ -52,7 +56,12 @@ public class FotografoResource {
 	@PostMapping("/fotografo")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Fotografo gravar(@Valid @RequestBody Fotografo fotografo) {
-		Fotografo novoFotografo = fotografoRepository.save(fotografo);
+		
+		String senhaCodificada = bCryptPasswordEncoder.encode(fotografo.getSenha());
+		
+		Fotografo novoFotografo = new Fotografo();
+		fotografo.setSenha(senhaCodificada);
+		novoFotografo =	fotografoRepository.save(fotografo);
 		return novoFotografo;
 	}
 }
